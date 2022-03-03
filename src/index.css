@@ -12,11 +12,6 @@ code {
     monospace;
 }
 
-a,
-th {
+a {
   cursor: pointer;
-}
-
-.row {
-  padding-top: 20px;
 }
