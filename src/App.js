@@ -64,7 +64,7 @@ class App extends Component {
       floatingFilter: true,
     };
     return (
-      <div className="ag-theme-alpine" style={{ height: 700 }}>
+      <div className="ag-theme-alpine" style={{ height: 950 }}>
         {this.state.popUp > 0 ? (
           <CustomizedDialogs
             openState={true}
