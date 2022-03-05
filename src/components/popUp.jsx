@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,6 +8,14 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
+
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const styles = (theme) => ({
   root: {
@@ -56,13 +64,23 @@ const DialogActions = withStyles((theme) => ({
 export default function CustomizedDialogs({ openState, onClose, data }) {
   const [open, setOpen] = React.useState(openState);
 
-  const handleClickOpen = () => {
-    console.log(openState);
-    setOpen(openState);
-  };
   const handleClose = () => {
     onClose();
-    //setOpen(false);
+  };
+
+  const createData = (name, calories, fat, carbs, protein) => {
+    return { name, calories, fat, carbs, protein };
+  };
+
+  const getRow = (label, dataItem) => {
+    return (
+      <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+        <TableCell component="th" scope="row">
+          {label}
+        </TableCell>
+        <TableCell align="right">{dataItem}</TableCell>
+      </TableRow>
+    );
   };
 
   return (
@@ -79,15 +97,18 @@ export default function CustomizedDialogs({ openState, onClose, data }) {
           {data.university}
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>Rank: {data.rank_display}</Typography>
-          <Typography gutterBottom>Country: {data.country}</Typography>
-          <Typography gutterBottom>City: {data.city}</Typography>
-          <Typography gutterBottom>Region: {data.region}</Typography>
-          <Typography gutterBottom>Type: {data.type}</Typography>
-          <Typography gutterBottom>Year of record: {data.year}</Typography>
-          <Typography gutterBottom>
-            <a href={data.link}>Link to university</a>
-          </Typography>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 500 }} aria-label="simple table">
+              <TableBody>
+                {getRow("Rank", data.rank_display)}
+                {getRow("Country", data.country)}
+                {getRow("City", data.city)}
+                {getRow("Region", data.region)}
+                {getRow("Type", data.type)}
+                {getRow("Year of record:", data.year)}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
